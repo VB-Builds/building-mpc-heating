@@ -1,0 +1,32 @@
+{
+  "claim": "A predictive heating controller cut simulated winter cost 11.5%, not the 20-40% often quoted.",
+  "data_label": "simulated building | open data: Open-Meteo weather, Zurich, 2024-10-15 to 2025-04-15",
+  "stats": [
+    [
+      "-11.5%",
+      "electricity cost vs tuned baseline",
+      "green"
+    ],
+    [
+      "-4.5%",
+      "electricity use (kWh)",
+      "accent"
+    ],
+    [
+      "3.8 Kh",
+      "outside comfort band (baseline 20.5)",
+      "amber"
+    ]
+  ],
+  "limit": "Simulated 3-zone building and assumed tariff; no real building, sensors or occupants tested yet.",
+  "alt": "Two stacked line charts over three winter days. Top: office temperature, where the MPC controller pre-heats before the comfort floor rises and the baseline reaches it late. Bottom: heat pump power, where the MPC draws more at night and less in high-tariff hours.",
+  "hashtags": [
+    "#SmartBuilding",
+    "#MPC",
+    "#HeatPump",
+    "#Python",
+    "#OpenSource",
+    "#Proptech"
+  ],
+  "post": "\"AI heating saves 20-40%\" is a common claim. I built a plain, open model predictive controller and tested it against a fair baseline.\n\nThe setup: a simulated 3-zone building with a heat pump. The baseline is a weather-compensated heating curve with room thermostats, night setback and a tuned pre-heat lead. The controller identifies a 2R2C grey-box model from sensor data, then solves a 24 h linear program every hour using a weather forecast, occupancy schedule, comfort band and a two-rate tariff. Weather is real Open-Meteo data for Zurich, 15 Oct 2024 to 15 Apr 2025.\n\nMeasured over the season: electricity cost down 11.5%, electricity use down 4.5%, comfort violations 3.8 Kh versus 20.5 Kh for the baseline. More than half of the cost saving disappears if the heat pump cannot exploit the lower supply temperature the controller allows (4.3% remains), and tripling the forecast error pushed comfort violations to 54 Kh.\n\nWhat is not verified: everything here is simulated. The tariff, occupancy and the building itself are assumptions, and the identified model predicts 24 h ahead with about 1.4 K error when the envelope temperature is unknown.\n\nIf you run predictive control in real buildings, which part of the gap to the headline savings is closest to what you see: baseline quality, model error or tariff?\n\nCode: https://github.com/Usernamepersonperson/building-mpc-heating"
+}

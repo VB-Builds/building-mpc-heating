@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "building-mpc-heating"
+version = "0.1.0"
+description = "Open-source predictive (MPC) heating controller with grey-box RC identification, compared against a heating-curve + thermostat baseline."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+dependencies = ["numpy>=1.26", "scipy>=1.11", "pandas>=2.1", "cvxpy>=1.4", "matplotlib>=3.8"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "ruff>=0.5"]
+
+[project.scripts]
+bmpc = "bmpc.cli:main"
+
+[tool.setuptools]
+packages = ["bmpc"]
+
+[tool.setuptools.package-data]
+bmpc = ["data/*.json"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-p no:asyncio"
+
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
